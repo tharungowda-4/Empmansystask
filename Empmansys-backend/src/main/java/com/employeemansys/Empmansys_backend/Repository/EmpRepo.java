@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface EmpRepo extends JpaRepository<Empmodel,Integer> {
-    Optional<Empmodel> findByUserId(int id);
+    Optional<Empmodel> findByUserId(Integer id);
 }

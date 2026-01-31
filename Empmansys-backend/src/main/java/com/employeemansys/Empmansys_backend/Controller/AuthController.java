@@ -42,20 +42,20 @@ public class AuthController {
     }
 
     // --- CREATE PROFILE (First time registration) ---
-    @PostMapping("/profile/{userId}")
-    public ResponseEntity<?> saveProfile(@PathVariable Integer userId, @RequestBody Empmodel details) {
+    @PostMapping("/profile/{user_id}")
+    public ResponseEntity<?> saveProfile(@PathVariable("user_id") Integer user_id, @RequestBody Empmodel details) {
         try {
-            return ResponseEntity.ok(authService.createProfile(userId, details));
+            return ResponseEntity.ok(authService.createProfile(user_id, details));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     // --- UPDATE PROFILE (Modify existing data) ---
-    @PutMapping("/profile/{userId}")
-    public ResponseEntity<?> updateProfile(@PathVariable Integer userId, @RequestBody Empmodel details) {
+    @PutMapping("/profile/{user_id}")
+    public ResponseEntity<?> updateProfile(@PathVariable("user_id") Integer user_id, @RequestBody Empmodel details) {
         try {
-            Empmodel updated = authService.updateExistingProfile(userId, details);
+            Empmodel updated = authService.updateExistingProfile(user_id, details);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -63,18 +63,18 @@ public class AuthController {
     }
 
     // --- GET PROFILE ---
-    @GetMapping("/profile/{userId}")
-    public ResponseEntity<Empmodel> getProfile(@PathVariable Integer userId) {
-        return authService.getProfileByUserId(userId)
+    @GetMapping("/profile/{user_id}")
+    public ResponseEntity<Empmodel> getProfile(@PathVariable("user_id") Integer user_id) {
+        return authService.getProfileByUserId(user_id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // --- DELETE PROFILE ---
-    @DeleteMapping("/profile/{userId}")
-    public ResponseEntity<String> deleteProfile(@PathVariable Integer userId) {
+    @DeleteMapping("/profile/{user_id}")
+    public ResponseEntity<String> deleteProfile(@PathVariable("user_id") Integer user_id) {
         try {
-            authService.deleteProfile(userId);
+            authService.deleteProfile(user_id);
             return ResponseEntity.ok("Profile deleted successfully");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

@@ -1,6 +1,7 @@
 package com.employeemansys.Empmansys_backend.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Empmodel {
     private String email;
 
     @Column(nullable = false)
-    private Integer age;
+    private String gender;
 
     @Column(nullable = false)
     private String city;
@@ -35,13 +36,11 @@ public class Empmodel {
     private Boolean knowsEnglish;
 
     @Column(nullable = false)
-    private Long phoneNumber;
-
-    @Column(nullable = false)
     private Float hscPercentage;
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Userauth user;
 
 }

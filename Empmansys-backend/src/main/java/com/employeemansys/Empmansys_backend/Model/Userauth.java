@@ -1,5 +1,6 @@
 package com.employeemansys.Empmansys_backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class Userauth {
 
     // One User has one Employee Profile
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Empmodel employee;
 }
